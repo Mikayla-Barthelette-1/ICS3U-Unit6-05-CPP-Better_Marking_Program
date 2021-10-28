@@ -8,25 +8,18 @@
 #include <list>
 #include <string>
 
-
-//template<size_t N>
-int averageOfMarks(std::list<int> marks) {
+float averageOfMarks(std::list<int> marks) {
     // this function finds the average of the marks
 
-    int amountOfNumbers;
-    int loopCounter;
-    int theSum;
-    int theAverage;
-    
-    srand(time(NULL));
-    
-    amountOfNumbers = loopCounter - 1;
+    int theSum = 0;
+    float theAverage = 0.0;
+
     theSum = 0;
     for (int aSingleMark : marks) {
         theSum = theSum + aSingleMark;
     }
-    
-    theAverage = theSum / amountOfNumbers;
+
+    theAverage = theSum / marks.size();
 
     return theAverage;
 }
@@ -38,8 +31,8 @@ main() {
     int loopCounter = 0;
     std::string userInput;
     int tempMark;
-    int average;
-    
+    float average;
+
     // input
     std::cout << "Please enter 1 mark at a time. Enter -1 to end." << std::endl;
     std::cout << std::endl;
@@ -53,15 +46,18 @@ main() {
             tempMark = std::stoi(userInput);
             if (tempMark == -1) {
                 break;
-            } else if (tempMark < 0 or tempMark > 100) {
-                std::cout << "\nPlease enter a mark between 0 - 100." << std::endl;
+            } else if (tempMark < 0 || tempMark > 100) {
+                std::cout << "\nPlease enter a mark between 0 - 100."
+                << std::endl;
                 std::cout << "\nDone." << std::endl;
-                exit;
-            marks.push_back(tempMark);
+                throw;
+            } else {
+                marks.push_back(tempMark);
             }
         } catch (std::invalid_argument) {
             std::cout << "\nInvalid input." << std::endl;
             std::cout << "\nDone." << std::endl;
+            throw;
         }
     }
 
